@@ -2,7 +2,7 @@
 
 ## Rotas da aplicação
 
-### POST `/signup`
+### POST `/auth/signup`
 Request Body
 ```JSON
 {
@@ -21,7 +21,7 @@ Response Body
 }
 ```
 
-### POST `/login`
+### POST `/auth/login`
 Request Body
 ```JSON
 {
@@ -38,7 +38,7 @@ Response Body
 }
 ```
 
-### POST `/recovery`
+### POST `/auth/recovery`
 Request Body
 ```JSON
 {
@@ -46,7 +46,7 @@ Request Body
 }
 ```
 
-### GET `/close-users`
+### GET `/user/close-users`
 Request Headers
 ```JSON
 {
@@ -80,7 +80,7 @@ Response Body
 }
 ```
 
-### GET `user/ID`
+### GET `user/:ID`
 Request Headers
 ```JSON
 {
@@ -123,7 +123,7 @@ Response Body
 },
 ```
 
-### GET `/timetable`
+### GET `/user/timetable`
 Request Headers
 ```JSON
 {
@@ -166,7 +166,7 @@ Response Body
 }
 ```
 
-### PUT `/timetable/DAY_NUMBER`
+### PUT `/user/timetable/:DAY_NUMBER`
 Request Headers
 ```JSON
 {
