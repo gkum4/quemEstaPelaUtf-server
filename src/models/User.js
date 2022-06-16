@@ -16,7 +16,7 @@ let userSchema = new Schema(
     connections: {
       type: Array
     },
-    idAdmin: {
+    isAdmin: {
       type: Boolean
     }
   },
