@@ -1,7 +1,7 @@
 const Users = require('../models/User');
 const AppError = require('../utils/AppError');
 
-const updateUserTimetableService = ({ userId, dayNumber, updatedSubjects = [] }) => {
+const updateUserTimetableService = async ({ userId, dayNumber, updatedSubjects = [] }) => {
   const user = await Users.findById(userId);
 
   if (!user) {

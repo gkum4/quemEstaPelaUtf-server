@@ -1,7 +1,7 @@
 const Users = require('../models/User');
 const AppError = require('../utils/AppError');
 
-const showUserTimetableService = ({ userId }) => {
+const showUserTimetableService = async ({ userId }) => {
   const user = await Users.findById(userId);
 
   if (!user) {
