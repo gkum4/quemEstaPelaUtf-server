@@ -181,8 +181,6 @@ Request Headers
 Response Body
 ```JSON
 {
-  "id": "STRING",
-  "username": "STRING",
   "2": {
     "subjects": [
       {
