@@ -3,6 +3,8 @@
 ## Rotas da aplicação
 
 ### POST `/auth/signup`
+Create account.
+
 Request Body
 ```JSON
 {
@@ -22,6 +24,8 @@ Response Body
 ```
 
 ### POST `/auth/login`
+Log in account.
+
 Request Body
 ```JSON
 {
@@ -39,6 +43,8 @@ Response Body
 ```
 
 ### POST `/auth/recovery`
+Recover password.
+
 Request Body
 ```JSON
 {
@@ -47,6 +53,8 @@ Request Body
 ```
 
 ### GET `/user/close-users`
+Get user connections with subjects in actual day of the week.
+
 Request Headers
 ```JSON
 {
@@ -80,7 +88,9 @@ Response Body
 }
 ```
 
-### GET `user/:ID`
+### GET `user/connection/:ID`
+Get user connection data (all subjects).
+
 Request Headers
 ```JSON
 {
@@ -121,6 +131,41 @@ Response Body
     ],
   },
 },
+```
+
+### POST `user/connection`
+Add new connection to user.
+
+Request Headers
+```JSON
+{
+  "authorization": "STRING", // token
+}
+```
+
+Request Body
+```JSON
+{
+  "id": "STRING",
+}
+```
+
+Response Body
+```JSON
+{
+  "id": "STRING",
+  "username": "STRING",
+},
+```
+
+### DELETE `user/connection/:ID`
+Delete user connection.
+
+Request Headers
+```JSON
+{
+  "authorization": "STRING", // token
+}
 ```
 
 ### GET `/user/timetable`
@@ -167,6 +212,8 @@ Response Body
 ```
 
 ### PUT `/user/timetable/:DAY_NUMBER`
+Edit user subjects from day of the week.
+
 Request Headers
 ```JSON
 {
@@ -209,6 +256,8 @@ Response Body
 ```
 
 ### POST `/admin/login`
+Log in admin account.
+
 Request Body
 ```JSON
 {
@@ -226,6 +275,8 @@ Response Body
 ```
 
 ### GET `/admin/users`
+Get all platform users.
+
 Request Headers
 ```JSON
 {
@@ -249,6 +300,8 @@ Response Body
 ```
 
 ### DELETE `/admin/users/ID`
+Delete user.
+
 Request Headers
 ```JSON
 {
