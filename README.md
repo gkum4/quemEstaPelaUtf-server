@@ -169,6 +169,8 @@ Request Headers
 ```
 
 ### GET `/user/timetable`
+Get user timetable data.
+
 Request Headers
 ```JSON
 {
