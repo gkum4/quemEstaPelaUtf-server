@@ -17,8 +17,45 @@ let userSchema = new Schema(
       type: Array
     },
     isAdmin: {
-      type: Boolean
-    }
+      type: Boolean,
+      default: false
+    },
+    2: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
+    3: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
+    4: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
+    5: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
+    6: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
+    7: {
+      subjects: {
+        type: Array,
+        default: []
+      }
+    },
   },
   { collection: "Users" }
 );

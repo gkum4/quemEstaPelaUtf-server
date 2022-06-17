@@ -1,7 +1,10 @@
 const { Router } = require('express');
 
-const Users = require('../models/User');
 const ensureAuthenticated = require('../middlewares/ensureAuthenticated');
+const addUserConnectionService = require('../services/addUserConnectionService');
+const deleteUserConnectionService = require('../services/deleteUserConnectionService');
+const listUserConnectionsService = require('../services/ListUserConnectionsService');
+const showUserConnectionService = require('../services/showUserConnectionService');
 
 const userRouter = Router();
 
@@ -10,16 +13,52 @@ userRouter.use(ensureAuthenticated);
 userRouter.get('/user/close-users', async (req, res) => {
   const userId = req.user.id;
 
-  console.log(await Users.findOne({id: userId}));
+  try {
+    const connections = await listUserConnectionsService({ userId });
 
-  return res.json({});
+    return res.json({ connections });
+  } catch (error) {
+    return res.status(error.statusCode ? error.statusCode : 400).json({ message: error.message });
+  }
 });
 
-userRouter.get('/user/:id', (req, res) => {
+userRouter.get('/user/connection/:id', (req, res) => {
   const userId = req.user.id;
-  const otherUserId = req.params.id;
+  const connectionId = req.params.id;
 
-  return res.json({});
+  try {
+    const connectionData = await showUserConnectionService({ userId, connectionId });
+
+    return res.json(connectionData);
+  } catch (error) {
+    return res.status(error.statusCode ? error.statusCode : 400).json({ message: error.message });
+  }
+});
+
+userRouter.post('/user/connection', (req, res) => {
+  const userId = req.user.id;
+  const connectionId = req.body.id;
+
+  try {
+    await addUserConnectionService({ userId, connectionId });
+
+    return res.json({});
+  } catch (error) {
+    return res.status(error.statusCode ? error.statusCode : 400).json({ message: error.message });
+  }
+});
+
+userRouter.delete('/user/connection/:id', (req, res) => {
+  const userId = req.user.id;
+  const connectionId = req.params.id;
+
+  try {
+    await deleteUserConnectionService({ userId, connectionId });
+
+    return res.json({});
+  } catch (error) {
+    return res.status(error.statusCode ? error.statusCode : 400).json({ message: error.message });
+  }
 });
 
 userRouter.get('/user/timetable', (req, res) => {
