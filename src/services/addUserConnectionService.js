@@ -14,6 +14,14 @@ const addUserConnectionService = async ({ userId, connectionId }) => {
     throw new AppError('User not found.', 404);
   }
 
+  if (user._id === connectionId) {
+    throw new AppError('Connection id is the same as user id.');
+  }
+
+  if (user.connections.find(connection => connection === connectionId)) {
+    throw new AppError("Connection already exists in user's connections.");
+  }
+
   user.connections.push(connectionId);
   await user.save();
 }

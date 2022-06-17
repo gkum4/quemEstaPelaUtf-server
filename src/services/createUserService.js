@@ -16,7 +16,7 @@ const createUserService = async ({ email, username, password }) => {
 
   const hashedPassword = await generateHash(password);
 
-  const user = { 
+  const userData = { 
     email, 
     username, 
     password: hashedPassword, 
@@ -24,12 +24,13 @@ const createUserService = async ({ email, username, password }) => {
     isAdmin: false
   };
 
-  await new Users(user).save();
+  const user = await new Users(userData).save();
 
-  delete user.password;
-  delete user.isAdmin;
-
-  return user;
+  return {
+    _id: user._id,
+    username: user.username,
+    email: user.email
+  };
 }
 
 module.exports = createUserService;

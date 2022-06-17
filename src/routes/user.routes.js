@@ -3,7 +3,9 @@ const { Router } = require('express');
 const ensureAuthenticated = require('../middlewares/ensureAuthenticated');
 const addUserConnectionService = require('../services/addUserConnectionService');
 const deleteUserConnectionService = require('../services/deleteUserConnectionService');
-const listUserConnectionsService = require('../services/ListUserConnectionsService');
+const listUserConnectionsWithFilteredSubjectsService = require(
+  '../services/listUserConnectionsWithFilteredSubjectsService'
+);
 const showUserConnectionService = require('../services/showUserConnectionService');
 const showUserTimetableService = require('../services/showUserTimetableService');
 const updateUserTimetableService = require('../services/updateUserTimetable');
@@ -16,7 +18,7 @@ userRouter.get('/user/close-users', async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const connections = await listUserConnectionsService({ userId });
+    const connections = await listUserConnectionsWithFilteredSubjectsService({ userId });
 
     return res.json({ connections });
   } catch (error) {
@@ -76,7 +78,7 @@ userRouter.get('/user/timetable', async (req, res) => {
 });
 
 userRouter.put('/user/timetable/:dayNumber', async (req, res) => {
-  const userId = req.user;
+  const userId = req.user.id;
   const dayNumber = req.params.dayNumber;
   const updatedSubjects = req.body.subjects;
 

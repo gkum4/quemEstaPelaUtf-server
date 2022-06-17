@@ -14,9 +14,7 @@ const showUserConnectionService = async ({ userId, connectionId }) => {
     throw new AppError('User does not have the specified connection.');
   }
 
-  const connection = await Users.findById(connectionId);
-  delete connection.password;
-  delete connection.isAdmin;
+  const connection = await Users.findById(connectionId, 'username 2 3 4 5 6 7');
 
   return connection;
 }

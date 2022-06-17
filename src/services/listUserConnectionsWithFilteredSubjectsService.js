@@ -1,7 +1,7 @@
 const Users = require('../models/User');
 const AppError = require('../utils/AppError');
 
-const listUserConnectionsService = async ({ userId }) => {
+const listUserConnectionsWithFilteredSubjectsService = async ({ userId }) => {
   const user = await Users.findById(userId);
 
   if (!user) {
@@ -13,9 +13,10 @@ const listUserConnectionsService = async ({ userId }) => {
   }
 
   const connections = [];
+  const dayNumber = new Date().getDay();
 
   for (const connectionId of user.connections) {
-    const connection = await Users.findById(connectionId);
+    const connection = await Users.findById(connectionId, `username ${dayNumber}`);
 
     if (!connection) {
       console.log(`User (_id: ${userId}) connection (id: ${connectionId}) not found.`);
@@ -24,19 +25,7 @@ const listUserConnectionsService = async ({ userId }) => {
     connections.push(connection);
   }
 
-  const dayNumber = new Date().getDay();
-
-  const result = connections.map(connection => {
-    const filteredData = {
-      _id: connection._id,
-      username: connection.username
-    };
-    filteredData[dayNumber] = connection[dayNumber];
-
-    return filteredData;
-  });
-
-  return result;
+  return connections;
 }
 
-module.exports = listUserConnectionsService;
+module.exports = listUserConnectionsWithFilteredSubjectsService;
