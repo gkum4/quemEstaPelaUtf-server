@@ -2,9 +2,9 @@ const Users = require('../models/User');
 const AppError = require('../utils/AppError');
 
 const addUserConnectionService = async ({ userId, connectionId }) => {
-  const connectionUserExists = await Users.findById(connectionId);
+  const connectionUser = await Users.findById(connectionId);
 
-  if (!connectionUserExists) {
+  if (!connectionUser) {
     throw new AppError('Connection id specified does not match any user.', 404);
   }
 
@@ -24,6 +24,8 @@ const addUserConnectionService = async ({ userId, connectionId }) => {
 
   user.connections.push(connectionId);
   await user.save();
+  
+  return connectionUser.username;
 }
 
 module.exports = addUserConnectionService;

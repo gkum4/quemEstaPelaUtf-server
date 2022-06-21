@@ -6,8 +6,8 @@ const userRouter = require('./user.routes');
 
 const routes = Router();
 
-routes.use(adminRouter);
-routes.use(authRouter);
-routes.use(userRouter);
+routes.use('/auth', authRouter);
+routes.use('/user', userRouter);
+routes.use('/admin', adminRouter);
 
 module.exports = routes;

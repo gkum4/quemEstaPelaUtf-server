@@ -14,7 +14,7 @@ const userRouter = Router();
 
 userRouter.use(ensureAuthenticated);
 
-userRouter.get('/user/close-users', async (req, res) => {
+userRouter.get('/close-users', async (req, res) => {
   const userId = req.user.id;
 
   try {
@@ -26,7 +26,7 @@ userRouter.get('/user/close-users', async (req, res) => {
   }
 });
 
-userRouter.get('/user/connection/:id', async (req, res) => {
+userRouter.get('/connection/:id', async (req, res) => {
   const userId = req.user.id;
   const connectionId = req.params.id;
 
@@ -39,20 +39,20 @@ userRouter.get('/user/connection/:id', async (req, res) => {
   }
 });
 
-userRouter.post('/user/connection', async (req, res) => {
+userRouter.post('/connection', async (req, res) => {
   const userId = req.user.id;
   const connectionId = req.body.id;
 
   try {
-    await addUserConnectionService({ userId, connectionId });
+    const connectionUsername = await addUserConnectionService({ userId, connectionId });
 
-    return res.json({});
+    return res.json({ username: connectionUsername });
   } catch (error) {
     return res.status(error.statusCode ? error.statusCode : 400).json({ message: error.message });
   }
 });
 
-userRouter.delete('/user/connection/:id', async (req, res) => {
+userRouter.delete('/connection/:id', async (req, res) => {
   const userId = req.user.id;
   const connectionId = req.params.id;
 
@@ -65,7 +65,7 @@ userRouter.delete('/user/connection/:id', async (req, res) => {
   }
 });
 
-userRouter.get('/user/timetable', async (req, res) => {
+userRouter.get('/timetable', async (req, res) => {
   const userId = req.user.id;
 
   try {
@@ -77,7 +77,7 @@ userRouter.get('/user/timetable', async (req, res) => {
   }
 });
 
-userRouter.put('/user/timetable/:dayNumber', async (req, res) => {
+userRouter.put('/timetable/:dayNumber', async (req, res) => {
   const userId = req.user.id;
   const dayNumber = req.params.dayNumber;
   const updatedSubjects = req.body.subjects;

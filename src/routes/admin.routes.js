@@ -3,15 +3,12 @@ const { Router } = require('express');
 const authenticateAdminUserService = require('../services/authenticateAdminUserService');
 const listAllUsersService = require('../services/listAllUsersService');
 const deleteUserService = require('../services/deleteUserService');
-const ensureAutenticated = require('../middlewares/ensureAuthenticated');
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated');
 const ensureIsAdminUser = require('../middlewares/ensureIsAdminUser');
 
 const adminRouter = Router();
 
-adminRouter.use(ensureAutenticated);
-adminRouter.use(ensureIsAdminUser);
-
-adminRouter.post('/admin/login', async (req, res) => {
+adminRouter.post('/login', async (req, res) => {
   const { email, username, password } = req.body;
 
   try {
@@ -23,11 +20,11 @@ adminRouter.post('/admin/login', async (req, res) => {
   }
 });
 
-adminRouter.get('/admin/users', async (req, res) => {
+adminRouter.get('/users', ensureAuthenticated, ensureIsAdminUser, async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const users = await listAllUsersService();
+    const users = await listAllUsersService({ userId });
 
     return res.json({ users });
   } catch (error) {
@@ -35,7 +32,7 @@ adminRouter.get('/admin/users', async (req, res) => {
   }
 });
 
-adminRouter.delete('/admin/users/:id', async (req, res) => {
+adminRouter.delete('/users/:id', ensureAuthenticated, ensureIsAdminUser, async (req, res) => {
   const userId = req.params.id;
 
   try {

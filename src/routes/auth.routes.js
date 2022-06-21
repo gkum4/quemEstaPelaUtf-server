@@ -5,7 +5,7 @@ const authenticateUserService = require('../services/authenticateUserService');
 
 const authRouter = Router();
 
-authRouter.post('/auth/signup', async (req, res) => {
+authRouter.post('/signup', async (req, res) => {
   const { email, username, password } = req.body;
 
   try {
@@ -17,7 +17,7 @@ authRouter.post('/auth/signup', async (req, res) => {
   }
 });
 
-authRouter.post('/auth/login', async (req, res) => {
+authRouter.post('/login', async (req, res) => {
   const { email, username, password } = req.body;
 
   try {
@@ -29,7 +29,7 @@ authRouter.post('/auth/login', async (req, res) => {
   }
 });
 
-authRouter.post('/auth/recovery', (req, res) => {
+authRouter.post('/recovery', (req, res) => {
   const { email } = req.body;
 
   // TODO

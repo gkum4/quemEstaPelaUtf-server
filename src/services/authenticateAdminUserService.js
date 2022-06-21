@@ -23,7 +23,7 @@ const authenticateAdminUserService = async ({ email, username, password }) => {
     throw new AppError('Authentication failed due to incorrect username or password.', 401);
   }
 
-  if (!user.idAdmin) {
+  if (!user.isAdmin) {
     throw new AppError('Authentication failed due to incorrect username or password.', 401);
   }
   

@@ -1,6 +1,6 @@
 const Users = require('../models/User');
 
-const ensureIsAdminUser = (req, res, next) => {
+const ensureIsAdminUser = async (req, res, next) => {
   const userId = req.user.id;
 
   let user;

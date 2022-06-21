@@ -13,7 +13,7 @@ const listUserConnectionsWithFilteredSubjectsService = async ({ userId }) => {
   }
 
   const connections = [];
-  const dayNumber = new Date().getDay();
+  const dayNumber = new Date().getDay() + 1;
 
   for (const connectionId of user.connections) {
     const connection = await Users.findById(connectionId, `username ${dayNumber}`);
